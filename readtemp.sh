@@ -1,24 +1,38 @@
 #!/bin/bash
-
+# "tail -5 outputFinal.txt" Read last 5 lines
+#For EVT2, read thermal_zone11
+#For EVT2.1, read thermal_zone9
 while true
 do
 
-arg1="$1"
+#Print Date
+#currentdate=$(date +"%Y%m%d")
+currentdate=$(date +"%Y%m%d")  #%T = %H:%M:%S
+echo $currentdate >> outputData.csv
 
+#Print Time
+now=$(date +"%T")  #%T = %H:%M:%S
+#now=$(date +"%Y%m%d-%T")  #%T = %H:%M:%S
+echo $now >> outputData.csv
+
+#Print Description
+arg1="$1"
+echo $1 >> outputData.csv
+
+#Print temps of different zones
 adb shell "cat /sys/class/thermal/thermal_zone0/temp;
 			cat /sys/class/thermal/thermal_zone5/temp; 
 			cat /sys/class/thermal/thermal_zone7/temp; 
 			cat /sys/class/thermal/thermal_zone8/temp; 
 			cat /sys/class/thermal/thermal_zone9/temp; 
-			cat /sys/class/thermal/thermal_zone11/temp" >> outputData.txt
+			cat /sys/class/thermal/thermal_zone11/temp" >> outputData.csv
 
-echo $1 >> outputData.txt
-now=$(date +"%T")  #%T = %H:%M:%S
-echo $now >> outputData.txt
 
+
+#Modify data from multilines into csv
 #https://stackoverflow.com/questions/8714355/bash-turning-multi-line-string-into-single-comma-separated
-#cat outputData.txt | xargs -n 5 | sed -e 's/ /, /g' > output.txt
-cat outputData.txt | xargs -n 8 | sed -e 's/ /,/g' > outputFinal.txt
+cat outputData.csv | xargs -n 9 | sed -e 's/ /,/g' > outputFinal.csv
 
-sleep 120
+#Repeat every minute
+sleep 60
 done
