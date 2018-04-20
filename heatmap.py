@@ -50,5 +50,4 @@ main()
 #data = np.loadtxt(r"20180418/3D_255_2_test.csv", delimiter=",", skiprows=10, usecols=range(1,255))
 
 #data3=np.loadtxt(r"H43_H46_H21.csv", delimiter=',',skiprows=1)
-print(data)
-print(len(data))
+
