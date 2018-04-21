@@ -10,10 +10,14 @@ import matplotlib.pyplot as plt
 import numpy as np
 from datetime import datetime
 
-
+#Change these variables
+filename_zone = "20180418_zone2D_0.csv"    
+filename_flir = "20180418_flir2D_0.csv"
+title = '2D:0/255'
 
 # reading all lines into list of string
-with open(r"20180418_zone2D_0.csv") as f:
+with open(filename_zone, 'r') as f:
+#with open(r"20180418_zone2D_0.csv") as f:
     content = f.readlines()[1:]
 
 content = [x.strip() for x in content]
@@ -22,9 +26,6 @@ dates = []
 zone9_list = []
 for line in content:
     splt = line.split(',')
-    #dates.append(splt[3])
-    #zone9_list.append(float(splt[8]))
-    #dates.append(splt[0])
     dates.append(datetime.strptime(splt[0], '%H:%M:%S').time())
     zone9_list.append(float(splt[2]))
 
@@ -35,7 +36,8 @@ plt.scatter(dates, zone9_list, label="Zone9-lcd_therm", color="y")
 
 
 # reading all lines into list of string
-with open(r"20180418_flir2D_0.csv") as f:
+with open(filename_flir, 'r') as f:
+#with open(r"20180418_flir2D_0.csv") as f:
     content = f.readlines()[13:]
 
 content = [x.strip() for x in content]
@@ -47,14 +49,12 @@ point3 = []
 point4 = []
 for line in content:
     splt = line.split(',')
-    #dates2.append(float(splt[2]))
     dates2.append(datetime.strptime(splt[2], '%H:%M:%S').time())
     point1.append(float(splt[3])) 
     point2.append(float(splt[4])) 
     point3.append(float(splt[5])) 
     point4.append(float(splt[6])) 
 
-#plt.scatter(dates2,point1)
 
 dates2desired = dates2[1::200]
 point1desired = point1[1::200]
@@ -62,23 +62,17 @@ point2desired = point2[1::200]
 point3desired = point3[1::200]
 point4desired = point4[1::200]
 
-#print(point1desired)
-#plt.plot_date(dates2, point1)
-#plt.xlim(0,30)
 plt.scatter(dates2desired,point1desired,label="Spot1",color="b")
 plt.scatter(dates2desired,point2desired,label="Spot2",color="r")
 plt.scatter(dates2desired,point3desired,label="Spot3",color="g")
 plt.scatter(dates2desired,point4desired,label="Spot4",color="k")
 
-#plt.xlim(0,30)
-#plt.ylim(0,55)
 
-plt.title('2D:0/255')
+plt.title(title)
 plt.xlabel('Time')
 plt.ylabel('Temperature (C)')
 #plt.xlim(-5,30)
 plt.xticks(rotation=30)
-#plt.ylim(0,55)
 plt.ylim(0,(max(zone9_list)+10))
 plt.legend(loc='lower right', frameon=True)
 
