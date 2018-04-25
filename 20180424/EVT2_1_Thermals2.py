@@ -11,9 +11,9 @@ import matplotlib.pyplot as plt
 from datetime import datetime
 
 #Change these variables
-filename_zone = "1_2D255_white_usbin_notcharging.csv"    
-filename_flir = "20180424Flir - 01_2D255_white.csv"
-title = '2D:255, Not Charging, Front'
+filename_zone = "05_3D255_black_USBIn_Notcharging.csv"    
+filename_flir = "20180424Flir - 12_iphoneX_maxbright_white_back.csv"
+title = 'iPhoneX, max brightness, white screen, back'
 
 plt.figure()
 
@@ -53,7 +53,8 @@ point3 = []
 point4 = []
 point5 = []
 point6 = []
-#point7 = []
+point7 = []
+point8 = []
 for line in content:
     splt = line.split(',')
     #dates2.append(datetime.strptime(splt[2], '%H:%M:%S').time()) 
@@ -62,19 +63,21 @@ for line in content:
     point2.append(float(splt[5])) 
     point3.append(float(splt[6])) 
     point4.append(float(splt[7])) 
-    point5.append(float(splt[9])) 
-    point6.append(float(splt[8])) 
-#    point7.append(float(splt[10])) 
+    point5.append(float(splt[8])) 
+    point6.append(float(splt[9])) 
+    point7.append(float(splt[10]))
+#    point8.append(float(splt[11]))
 
 #Pick every 200 points
-dates2desired = dates2[1::200]
-point1desired = point1[1::200]
-point2desired = point2[1::200]
-point3desired = point3[1::200]
-point4desired = point4[1::200]
-point5desired = point5[1::200]
-point6desired = point6[1::200]
-#point7desired = point7[1::200]
+dates2desired = dates2[1::50]
+point1desired = point1[1::50]
+point2desired = point2[1::50]
+point3desired = point3[1::50]
+point4desired = point4[1::50]
+point5desired = point5[1::50]
+point6desired = point6[1::50]
+point7desired = point7[1::50]
+#point8desired = point8[1::50]
 #print(dates2desired)
 
 plt.scatter(dates2desired,point1desired,label="Spot1",color="b")
@@ -83,7 +86,8 @@ plt.scatter(dates2desired,point3desired,label="Spot3",color="g")
 plt.scatter(dates2desired,point4desired,label="Spot4",color="k")
 plt.scatter(dates2desired,point5desired,label="Spot5",color="c")
 plt.scatter(dates2desired,point6desired,label="Spot6",color="m")
-#plt.scatter(dates2desired,point7desired,label="Spot7",color="b",marker="*")
+plt.scatter(dates2desired,point7desired,label="Spot7",color="b",marker="*")
+#plt.scatter(dates2desired,point8desired,label="Spot8",color="r",marker="*")
 
 plt.title(title)
 plt.xlabel('Time')
@@ -97,19 +101,21 @@ plt.legend(loc='lower right', frameon=True)
 
 
 
-plt.annotate('%0.2f' % point1desired[-1], xy=(1,point1desired[-1]), xytext=(0, -18), 
+plt.annotate('%0.2f' % point1desired[-1], xy=(1,point1desired[-1]), xytext=(0, 15), 
                  xycoords=('axes fraction', 'data'), textcoords='offset points',color="b")
-plt.annotate('%0.2f' % point2desired[-1], xy=(1,point2desired[-1]), xytext=(0, 16), 
+plt.annotate('%0.2f' % point2desired[-1], xy=(1,point2desired[-1]), xytext=(0, 5), 
                  xycoords=('axes fraction', 'data'), textcoords='offset points',color="r")
-plt.annotate('%0.2f' % point3desired[-1], xy=(1,point3desired[-1]), xytext=(0, 2), 
+plt.annotate('%0.2f' % point3desired[-1], xy=(1,point3desired[-1]), xytext=(0, -15), 
                  xycoords=('axes fraction', 'data'), textcoords='offset points',color="g")
-plt.annotate('%0.2f' % point4desired[-1], xy=(1,point4desired[-1]), xytext=(0, -8), 
+plt.annotate('%0.2f' % point4desired[-1], xy=(1,point4desired[-1]), xytext=(0, -28), 
                  xycoords=('axes fraction', 'data'), textcoords='offset points',color="k")
-plt.annotate('%0.2f' % point5desired[-1], xy=(1,point5desired[-1]), xytext=(0, -16), 
+plt.annotate('%0.2f' % point5desired[-1], xy=(1,point5desired[-1]), xytext=(0, -23), 
                  xycoords=('axes fraction', 'data'), textcoords='offset points',color="c")
-plt.annotate('%0.2f' % point6desired[-1], xy=(1,point6desired[-1]), xytext=(0, -24), 
+plt.annotate('%0.2f' % point6desired[-1], xy=(1,point6desired[-1]), xytext=(0, -35), 
                  xycoords=('axes fraction', 'data'), textcoords='offset points',color="m")
-#plt.annotate('%0.2f' % point7desired[-1], xy=(1,point7desired[-1]), xytext=(0, 15), 
-#                 xycoords=('axes fraction', 'data'), textcoords='offset points',color="b")
+plt.annotate('%0.2f' % point7desired[-1], xy=(1,point7desired[-1]), xytext=(0, -5), 
+                 xycoords=('axes fraction', 'data'), textcoords='offset points',color="b")
+#plt.annotate('%0.2f' % point8desired[-1], xy=(1,point8desired[-1]), xytext=(0, 15), 
+#                 xycoords=('axes fraction', 'data'), textcoords='offset points',color="r")
 plt.show()
 
