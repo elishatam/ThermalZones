@@ -13,7 +13,7 @@ from datetime import datetime
 #Change these variables
 filename_zone = "05_3D255_black_USBIn_Notcharging.csv"    
 filename_flir = "20180425 - 06_Dungeon.csv"
-title = 'iPhoneX, max brightness, white screen, back'
+title = 'Dungeon Master, 4x1, ACT On, DOF On'
 
 plt.figure()
 
@@ -69,15 +69,15 @@ for line in content:
 #    point8.append(float(splt[11]))
 
 #Pick every 200 points
-dates2desired = dates2[1::50]
-point1desired = point1[1::50]
-point2desired = point2[1::50]
-point3desired = point3[1::50]
-point4desired = point4[1::50]
-point5desired = point5[1::50]
-point6desired = point6[1::50]
-point7desired = point7[1::50]
-#point8desired = point8[1::50]
+dates2desired = dates2[1::200]
+point1desired = point1[1::200]
+point2desired = point2[1::200]
+point3desired = point3[1::200]
+point4desired = point4[1::200]
+point5desired = point5[1::200]
+point6desired = point6[1::200]
+point7desired = point7[1::200]
+#point8desired = point8[1::200]
 #print(dates2desired)
 
 plt.scatter(dates2desired,point1desired,label="Spot1",color="b")
@@ -107,7 +107,7 @@ plt.annotate('%0.2f' % point2desired[-1], xy=(1,point2desired[-1]), xytext=(0, 5
                  xycoords=('axes fraction', 'data'), textcoords='offset points',color="r")
 plt.annotate('%0.2f' % point3desired[-1], xy=(1,point3desired[-1]), xytext=(0, -15), 
                  xycoords=('axes fraction', 'data'), textcoords='offset points',color="g")
-plt.annotate('%0.2f' % point4desired[-1], xy=(1,point4desired[-1]), xytext=(0, -28), 
+plt.annotate('%0.2f' % point4desired[-1], xy=(1,point4desired[-1]), xytext=(0, -20), 
                  xycoords=('axes fraction', 'data'), textcoords='offset points',color="k")
 plt.annotate('%0.2f' % point5desired[-1], xy=(1,point5desired[-1]), xytext=(0, -23), 
                  xycoords=('axes fraction', 'data'), textcoords='offset points',color="c")
