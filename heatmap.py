@@ -42,15 +42,19 @@ def main():
     
     #20180425/heatmap/03_3D255
     #20180426/heatmap/00_3D255
-
-    data0 = np.loadtxt(r"20180426/heatmap/00_3D255.csv", delimiter=",", skiprows=2, usecols=range(1,321))
-    data1 = np.loadtxt(r"20180426/heatmap/05_DungeonHighGPU.csv", delimiter=",", skiprows=2, usecols=range(1,321))
-    datadifference = data1 - data0
+    sleep = np.loadtxt(r"20180425/heatmap/01_sleep.csv", delimiter=",", skiprows=2, usecols=range(1,321))
+    data0 = np.loadtxt(r"20180425/heatmap/02_2D_0.csv", delimiter=",", skiprows=2, usecols=range(1,321))
+    data1 = np.loadtxt(r"20180425/heatmap/11_2D255.csv", delimiter=",", skiprows=2, usecols=range(1,321))
+    system = data0 - sleep
+    twod = data1 - data0
+    #datadifference = (twod * 25/20) + system
+    datadifference = data1-data0
+    datadifference = datadifference * 25/20 + system
     fig, ax = plt.subplots(3, sharex=True)
 #    fig, ax = plt.subplots(1, 3)
     im0=ax[0].imshow(data0, extent=extent, aspect=calculate_aspect(shape, extent), cmap='afmhot')
     fig.colorbar(im0, ax = ax[0])
-    ax[0].set_title('3D:255')
+    ax[0].set_title('2d:0')
     ax[0].set_ylabel('Pixel')
     i,j = np.unravel_index(data0.argmax(), data0.shape) #i = row number. j = column number
     
@@ -63,7 +67,7 @@ def main():
     
     im1=ax[1].imshow(data1, extent=extent, aspect=calculate_aspect(shape, extent), cmap='afmhot')
     fig.colorbar(im1, ax = ax[1])
-    ax[1].set_title('Dungeon Masters, High GPU')
+    ax[1].set_title('2D255')
     ax[1].set_ylabel('Pixel')
     i,j = np.unravel_index(data1.argmax(), data1.shape) #i = row number. j = column number
     #print(i+3,j+2) #Need to add in 3 in i because skip 2 rows and counting starts at 0, not 1
@@ -74,7 +78,7 @@ def main():
     
     im2=ax[2].imshow(datadifference, extent=extent, aspect=calculate_aspect(shape, extent), cmap='afmhot')
     fig.colorbar(im2, ax = ax[2])
-    ax[2].set_title('Temperature Difference')
+    ax[2].set_title('Temperature 2D: 25/20 + system')
     ax[2].set_xlabel('Pixel')
     ax[2].set_ylabel('Pixel')
     i,j = np.unravel_index(datadifference.argmax(), datadifference.shape) #i = row number. j = column number
