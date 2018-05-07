@@ -26,13 +26,15 @@ adb shell "cat /sys/class/thermal/thermal_zone0/temp;
 			cat /sys/class/thermal/thermal_zone8/temp; 
 			cat /sys/class/thermal/thermal_zone9/temp; 
 			cat /sys/class/thermal/thermal_zone11/temp;
-                        cat /sys/class/kgsl/kgsl-3d0/devfreq/cur_freq;" >> outputData.csv
+            cat /sys/class/kgsl/kgsl-3d0/devfreq/cur_freq;
+            cat /sys/class/leds/lcd-backlight/brightness;
+            cat /sys/class/leds/LM36923H-BL/brightness;" >> outputData.csv
 
 
 
 #Modify data from multilines into csv
 #https://stackoverflow.com/questions/8714355/bash-turning-multi-line-string-into-single-comma-separated
-cat outputData.csv | xargs -n 10 | sed -e 's/ /,/g' > outputFinal.csv
+cat outputData.csv | xargs -n 12 | sed -e 's/ /,/g' > outputFinal.csv
 
 #Repeat every minute
 sleep 60
